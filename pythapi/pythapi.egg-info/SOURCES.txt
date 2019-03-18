@@ -1,6 +1,0 @@
-pythapi
-setup.py
-pythapi.egg-info/PKG-INFO
-pythapi.egg-info/SOURCES.txt
-pythapi.egg-info/dependency_links.txt
-pythapi.egg-info/top_level.txt
