@@ -12,6 +12,9 @@ Ready for a merge? Create a merge request from your devel branche to the origina
 import urllib3
 import pyapi
 
+# Disable certificate warnings and connect to destination API host
+urllib3.disable_warnings()
+
 # Specify the destination host and the base URL.
 apiEndpoint = pyapi.Connect('localhost', '/base/api/url')
 
