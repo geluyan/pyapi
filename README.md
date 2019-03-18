@@ -1,5 +1,5 @@
 # pyapi
-pyapi is a micro framework written in Python to perform API calls. Currenlty is a work in progress and all contributation are welcome.
+pyapi is a micro framework written in Python to perform API calls. Currently is a work in progress and all contributation are welcome.
 
 # Contributing
 Up to the challenage making this micro framework even better? Fork the repository and checkout the devel branch for local development.
