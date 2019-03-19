@@ -6,6 +6,12 @@ Up to the challenge making this micro framework even better? Fork the repository
 
 Ready for a merge? Create a merge request from your devel branche to the original devel branche.
 
+# Installation
+pythapi is distributed through pypi and can be install using pip for python 2 and 3.
+
+    pip install pythapi
+    pip3 install pythapi
+
 # Getting started example
 
 ```
@@ -16,10 +22,9 @@ import pythapi
 urllib3.disable_warnings()
 
 # Specify the destination host and the base URL.
-apiEndpoint = pyapi.Connect('localhost', '/base/api/url')
+apiEndpoint = pythapi.Connect('localhost', '/base/api/url')
 
 # Get all users
 # This will perform a GET request using the URL https://localhost/base/api/url/users
-
 apiEndpoint.get(/users)
 ```
