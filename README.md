@@ -22,10 +22,9 @@ import pythapi
 urllib3.disable_warnings()
 
 # Specify the destination host and the base URL.
-apiEndpoint = pyapi.Connect('localhost', '/base/api/url')
+apiEndpoint = pythapi.Connect('localhost', '/base/api/url')
 
 # Get all users
 # This will perform a GET request using the URL https://localhost/base/api/url/users
-
 apiEndpoint.get(/users)
 ```
