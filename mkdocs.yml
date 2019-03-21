@@ -1,0 +1,18 @@
+site_name: Micro API Call Framework
+site_description: Documentation for the Python Micro API Call Framework pythapi.
+repo_url: https://github.com/geluyan/pythapi/
+site_author: Andy Geluykens
+name: test
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+      - python
+markdown_extensions:
+  - admonition
+nav:
+  - 'guide.md'
+  - 'cli.md'
+  - 'versions.md'
+  - 'contributing.md'
+  - 'FAQ.md'

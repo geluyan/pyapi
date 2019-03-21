@@ -57,25 +57,62 @@ class Connect():
                         verify=False,
                         headers=header,
                         data=config)
+            elif call_type == 'PUT':
+                config = json.dumps(config)
+                print(config)
+                request_url = "https://{}{}{}".format(
+                    self.host, self.url, api_endpoint)
+                api_request = requests.put(request_url, verify=False, headers=header, data=config)
+            elif call_type == 'DELETE':
+                request_url = "https://{}{}{}".format(
+                    self.host, self.url, api_endpoint)
+                api_request = requests.delete(
+                    request_url, verify=False, headers=header)
             else:
                 sys.exit('Error: the _common_api() call_type must be one of the following: {}'.format(
-                    ['GET', 'POST']))
-        except BaseException:
-            sys.exit("Error: Unable to establish a connection to the API destination host.")
-
-        try:
-            
-            return api_request.json()
-        except BaseException:
-            return {'status_code': api_request.status_code}
+                    ['GET', 'POST', 'PUT', 'DELETE']))
+        except requests.exceptions.ConnectTimeout:
+            sys.exit(
+                "Error: Unable to establish a connection to the endpoint.")
+        except requests.exceptions.ReadTimeout:
+            sys.exit("Error: The endpoint did not respond to the API request in the allotted amount of time.")
+        except requests.exceptions.RequestException as error:
+            # If "error_message" has be defined sys.exit that message else
+            # sys.exit the request exception error
+            try:
+                error_message
+            except NameError:
+                sys.exit(error)
+            else:
+                sys.exit('Error: ' + error_message)
+        else:
+            try:
+                return api_request.json()
+            except BaseException:
+                return {'status_code': api_request.status_code}
 
     def get(self, api_endpoint, authentication=True):
         return self._common_api(
             'GET',
-            api_endpoint)
+            api_endpoint,
+            authentication=authentication)
 
     def post(self, api_endpoint, config, authentication=True):
         return self._common_api(
             'POST',
             api_endpoint,
-            config=config)
+            config=config,
+            authentication=authentication)
+
+    def put(self, api_endpoint, config, authentication=True):
+        return self._common_api(
+            'PUT',
+            api_endpoint,
+            config=config,
+            authentication=authentication)
+
+    def delete(self, api_endpoint, authentication=True):
+        return self._common_api(
+            'DELETE',
+            api_endpoint,
+            authentication=authentication)
