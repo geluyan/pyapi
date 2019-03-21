@@ -5,8 +5,11 @@ theme:
   highlightjs: true
   hljs_languages:
       - python
+markdown_extensions:
+  - admonition
 nav:
   - 'guide.md'
+  - 'cli.md'
   - 'versions.md'
   - 'contributing.md'
   - 'FAQ.md'
