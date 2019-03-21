@@ -12,6 +12,6 @@ markdown_extensions:
 nav:
   - 'Script Guide': 'guide.md'
   - 'CLI Guide': 'cli.md'
-  - 'Verion History': 'versions.md'
+  - 'Version History': 'versions.md'
   - 'Contributing to pythapi': 'contributing.md'
   - 'FAQ': 'FAQ.md'
