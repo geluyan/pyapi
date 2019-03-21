@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.2] - Unreleased - Current devel branch
 ### Added
-- API support for PUT an DELETE
+- API support for PUT and DELETE
 - Created a CHANGELOG
 - Read the Docs documentation
 - pythapi CLI
