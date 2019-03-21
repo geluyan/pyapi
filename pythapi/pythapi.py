@@ -115,5 +115,4 @@ class Connect():
         return self._common_api(
             'DELETE',
             api_endpoint,
-            config=None,
             authentication=authentication)

@@ -6,6 +6,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="pythapi",
     version="0.0.1",
+    scripts=['bin/pythapi'],
     author="Andy Geluykens",
     author_email="a.geluykens@gmail.com",
     description="A micro framework for API calls",

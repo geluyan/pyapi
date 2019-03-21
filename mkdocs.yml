@@ -1,0 +1,12 @@
+site_name: Micro API Call Framework
+name: test
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+      - python
+nav:
+  - 'guide.md'
+  - 'versions.md'
+  - 'contributing.md'
+  - 'FAQ.md'
