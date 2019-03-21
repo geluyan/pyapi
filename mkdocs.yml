@@ -9,7 +9,7 @@ theme:
       - python
 markdown_extensions:
   - admonition
-pages:
+nav:
   - 'Script Guide': 'guide.md'
   - 'CLI Guide': 'cli.md'
   - 'Verion History': 'versions.md'
