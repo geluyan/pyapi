@@ -6,6 +6,7 @@
 * API support for PUT an DELETE
 * Created a CHANGELOG
 * Read the Docs documentation
+* pythapi CLI
 
 ## 0.0.1
 **Release Date** 2019-03-18

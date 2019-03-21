@@ -52,7 +52,7 @@ The `get` is the most easiest HTTP method. Just use the `get` method and pass a 
 `post` requires a body to be send. You can't enter the body on the CLI. In some circumstances the body is very small but currenlty pythapi only supports the body from a json file:
 
     $cat body.json
-    data={
+    {
         "password": "password",
         "username": "username"
     }
@@ -63,7 +63,7 @@ The `get` is the most easiest HTTP method. Just use the `get` method and pass a 
 `put` acts the same like `post`:
 
     $cat body.json
-    data={
+    {
         "oldpassword": "password",
         "username": "username",
         "newpassword": "iamanewpassword"
