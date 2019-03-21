@@ -1,5 +1,5 @@
 # CLI Operations
-The biggest advantage of pythapi the the CLI interface. You can directly perform API call agains your endpoint on the CLI. How awesome is that ;)
+The biggest advantage of pythapi is the CLI interface. You can directly perform API call against your endpoint on the CLI. How awesome is that ;)
 
 After you've installed pythapi through pip, pythapi is available over the CLI using:
 
@@ -69,7 +69,7 @@ The `get` is the most easiest HTTP method. Just use the `get` method and pass a 
         "newpassword": "iamanewpassword"
     }
 
-    $pythapi put /login body.json
+    $pythapi put /changepassword body.json
 
 ## DELETE
 And at last, the `delete` method is the same as the `get` method:

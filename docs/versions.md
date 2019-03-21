@@ -3,6 +3,7 @@
 
 **Added**
 
+* Where're getting closer :D
 * API support for PUT an DELETE
 * Created a CHANGELOG
 * Read the Docs documentation

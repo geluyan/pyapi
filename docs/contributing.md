@@ -20,4 +20,4 @@ The documentation is written using `mkdocs`. You can serve the documentation sit
     $pip install mkdocs
     $mkdocs serve
 
-This will launch the web server on `http://localhost:8000`. As soon you've updated the documentation, the changes are updated immediatly on the web interface.
+This will launch a web server on `http://localhost:8000`. As soon you've updated the documentation, the changes are updated immediatly on the web interface.

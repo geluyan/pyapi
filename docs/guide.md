@@ -5,11 +5,11 @@ pythapi is made available through pypi. It can be installed using pip:
 
     $ pip install pythapi
 
-If your system uses both Python 2 or Python 3, you can also install pathapi for python 3:
+If your system uses both Python 2 or Python 3, you can also install pythapi for python 3:
 
     $ pip3 install pythapi
 
-If you're not using pip or pip isn't available on you system. You can also download pythap from pypi or directly from github, extract and then install it:
+If you're not using pip or pip isn't available on you system. You can also download pythapi from pypi or directly from Github, extract and then install it:
 
     $ python setup.py install
 
