@@ -10,8 +10,8 @@ theme:
 markdown_extensions:
   - admonition
 nav:
-  - 'guide.md'
-  - 'cli.md'
-  - 'versions.md'
-  - 'contributing.md'
-  - 'FAQ.md'
+  - 'Script Guide': 'guide.md'
+  - 'CLI Guide': 'cli.md'
+  - 'Verion History': 'versions.md'
+  - 'Contributing to pythapi': 'contributing.md'
+  - 'FAQ': 'FAQ.md'
