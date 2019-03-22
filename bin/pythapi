@@ -49,6 +49,22 @@ Swagger CLI methods are:
         getattr(self, args.method)()
 
     def get(self):
+        _get(self.config, self.endpoint)
+
+    def post(self):
+        _post(self.config, self.endpoint)
+
+    def put(self):
+        _put(self.config, self.endpoint)
+
+    def delete(self):
+        _delete(self.config, self.endpoint)
+    
+    def swagger(self):
+        _swagger(self.config, self.endpoint)
+class _get(object):
+    
+    def __init__(self, config, endpoint):
         parser = argparse.ArgumentParser(
             description='HTTP GET Request')
         # prefixing the argument with -- means it's optional
@@ -56,9 +72,11 @@ Swagger CLI methods are:
         # now that we're inside a subcommand, ignore the first
         # TWO argvs, ie the command (pythapi) and the subcommand (get)
         args = parser.parse_args(sys.argv[2:])
-        print(self.endpoint.get(args.path))
+        print(endpoint.get(args.path))
 
-    def post(self):
+class _post(object):
+    
+    def __init__(self, config, endpoint):
         parser = argparse.ArgumentParser(
             description='HTTP POST Request')
         # prefixing the argument with -- means it's optional
@@ -71,11 +89,13 @@ Swagger CLI methods are:
         try:
             f=open(args.body, "r")
             data = json.loads(f.read())
-            print(self.endpoint.post(args.path, data))
+            print(endpoint.post(args.path, data))
         except IOError:
             sys.exit("Error: Unable to read body file.")
 
-    def put(self):
+class _put(object):
+
+    def __init__(self, config, endpoint):
         parser = argparse.ArgumentParser(
             description='HTTP PUT Request')
         # prefixing the argument with -- means it's optional
@@ -88,11 +108,13 @@ Swagger CLI methods are:
         try:
             f=open(args.body, "r")
             data = json.loads(f.read())
-            print(self.endpoint.put(args.path, data))
+            print(endpoint.put(args.path, data))
         except IOError:
             sys.exit("Error: Unable to read body file.")
 
-    def delete(self):
+class _delete(object):
+
+    def __init__(self, config, endpoint):
         parser = argparse.ArgumentParser(
             description='HTTP DELETE Request')
         # prefixing the argument with -- means it's optional
@@ -100,17 +122,19 @@ Swagger CLI methods are:
         # now that we're inside a subcommand, ignore the first
         # TWO argvs, ie the command (pythapi) and the subcommand (delete)
         args = parser.parse_args(sys.argv[2:])
-        print(self.endpoint.delete(args.path))
-    
-    def swagger(self):
-        swaggerData = self.convert_config_file(self.config['swagger']['file'])
+        print(endpoint.delete(args.path))
+
+class _swagger(object):
+
+    def __init__(self, config, endpoint):
+        swaggerData = self.convert_config_file(config['swagger']['file'])
         #rint(swaggerData['paths'])
         parser = argparse.ArgumentParser(
             description='Swagger CLI Viewer')
         # prefixing the argument with -- means it's optional
         parser.add_argument('-l', '--list', action='store_true', help="A list op available API Call")
         parser.add_argument('-f', '--filter', help="Used together with -l to filter the API call on a string")
-        parser.add_argument('path', help="Enter the path to get extra information")
+        parser.add_argument('-p', '--path', help="Enter the path to get extra information")
         # now that we're inside a subcommand, ignore the first
         # TWO argvs, ie the command (pythapi) and the subcommand (swagger)
         args = parser.parse_args(sys.argv[2:])
@@ -185,8 +209,6 @@ Swagger CLI methods are:
                         sys.exit("Warning: Invalid yaml file. Couldn't convert it to json")
         else:
             sys.exit("Error: The file " + config_file + " doesn't exists.")
-
-    
 
 if __name__ == '__main__':
     pythapiCLI()
