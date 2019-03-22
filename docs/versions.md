@@ -1,5 +1,12 @@
+## [0.0.3] - Not yet released
+**Release Date** Not yet released
+
+**Added**
+
+* First version of the swagger viewer
+
 ## 0.0.2
-**Release Date** Not yes released
+**Release Date** 2019-03-21
 
 **Added**
 

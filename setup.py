@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pythapi",
-    version="0.0.2",
+    version="0.0.3",
     scripts=['bin/pythapi'],
     author="Andy Geluykens",
     author_email="a.geluykens@gmail.com",

@@ -6,6 +6,7 @@ import configparser
 import os
 import urllib3
 import json
+import yaml
 
 class pythapiCLI(object):
 
@@ -14,12 +15,12 @@ class pythapiCLI(object):
         urllib3.disable_warnings()
 
         try:
-            config = configparser.ConfigParser()
+            self.config = configparser.ConfigParser()
             with open(os.path.expanduser('~') + '/.pythapi/config') as f:
-                config.read_file(f)
-            self.endpoint = pythapi.Connect(config['default']['endpoint'], config['default']['base_url'])
-            if config['auth']['authentication']:
-                self.endpoint.authorization = config['auth']['auth_key']
+                self.config.read_file(f)
+            self.endpoint = pythapi.Connect(self.config['default']['endpoint'], self.config['default']['base_url'])
+            if self.config['auth']['authentication']:
+                self.endpoint.authorization = self.config['auth']['auth_key']
         except IOError:
             sys.exit("Error: Unable to read config file.")
         
@@ -27,10 +28,14 @@ class pythapiCLI(object):
             usage='''pythapi <command> [<args>]
 
 The most commonly used HTTP methods are:
-   get     HTTP GET Request
-   post    HTTP POST Request
-   put     HTTP PUT Request
-   delete  HTTP DELETE Request
+    get     HTTP GET Request
+    post    HTTP POST Request
+    put     HTTP PUT Request
+    delete  HTTP DELETE Request
+
+Swagger CLI methods are:
+    swagger Show available swagger path requests
+
 ''')
         parser.add_argument('method', help='HTTP method to run')
         # parse_args defaults to [1:] for args, but you need to
@@ -49,7 +54,7 @@ The most commonly used HTTP methods are:
         # prefixing the argument with -- means it's optional
         parser.add_argument('path', help="The path to the API call")
         # now that we're inside a subcommand, ignore the first
-        # TWO argvs, ie the command (git) and the subcommand (commit)
+        # TWO argvs, ie the command (pythapi) and the subcommand (get)
         args = parser.parse_args(sys.argv[2:])
         print(self.endpoint.get(args.path))
 
@@ -60,7 +65,7 @@ The most commonly used HTTP methods are:
         parser.add_argument('path', help="The path to the API call")
         parser.add_argument('body', help="Filename containing the content of the body")
         # now that we're inside a subcommand, ignore the first
-        # TWO argvs, ie the command (git) and the subcommand (commit)
+        # TWO argvs, ie the command (pythapi) and the subcommand (post)
         args = parser.parse_args(sys.argv[2:])
 
         try:
@@ -77,7 +82,7 @@ The most commonly used HTTP methods are:
         parser.add_argument('path', help="The path to the API call")
         parser.add_argument('body', help="Filename containing the content of the body")
         # now that we're inside a subcommand, ignore the first
-        # TWO argvs, ie the command (git) and the subcommand (commit)
+        # TWO argvs, ie the command (pythapi) and the subcommand (put)
         args = parser.parse_args(sys.argv[2:])
         
         try:
@@ -93,9 +98,95 @@ The most commonly used HTTP methods are:
         # prefixing the argument with -- means it's optional
         parser.add_argument('path', help="The path to the API call")
         # now that we're inside a subcommand, ignore the first
-        # TWO argvs, ie the command (git) and the subcommand (commit)
+        # TWO argvs, ie the command (pythapi) and the subcommand (delete)
         args = parser.parse_args(sys.argv[2:])
         print(self.endpoint.delete(args.path))
+    
+    def swagger(self):
+        swaggerData = self.convert_config_file(self.config['swagger']['file'])
+        #rint(swaggerData['paths'])
+        parser = argparse.ArgumentParser(
+            description='Swagger CLI Viewer')
+        # prefixing the argument with -- means it's optional
+        parser.add_argument('-l', '--list', action='store_true', help="A list op available API Call")
+        parser.add_argument('-f', '--filter', help="Used together with -l to filter the API call on a string")
+        parser.add_argument('path', help="Enter the path to get extra information")
+        # now that we're inside a subcommand, ignore the first
+        # TWO argvs, ie the command (pythapi) and the subcommand (swagger)
+        args = parser.parse_args(sys.argv[2:])
+        # Show a list of available path's
+        calls = ['{:8}{}{}'.format("Method", "", "Path")]
+        if args.list:
+            for p in swaggerData['paths']:
+                if args.filter:
+                    if str(args.filter).lower() in p.lower():
+                        for method in swaggerData['paths'][p]:
+                            calls.append('{:8}{}{}'.format(method, "", p))
+                else:
+                    for method in swaggerData['paths'][p]:
+                        calls.append('{:8}{}{}'.format(method, "", p))
+
+            for call in calls:
+                print(call)
+        if args.path and not args.list:
+            print('{:13}{}'.format("Path:" , args.path))
+            print('{:13}'.format('Methods: ') + ','.join("{}".format(method) for (method) in swaggerData['paths'][args.path]))
+            for method in swaggerData['paths'][args.path]:
+                print('{}'.format(method.upper()))
+                if 'description' in swaggerData['paths'][args.path][method]: print('{0:>15}{1}'.format('Description: ', swaggerData['paths'][args.path][method]['description'].replace('\n', ' ')))
+                if 'summary' in swaggerData['paths'][args.path][method]: print('{0:>15}{1}'.format('Summary: ', swaggerData['paths'][args.path][method]['summary'].replace('\n', ' ')))
+                if 'parameters' in swaggerData['paths'][args.path][method]: print('{0:>15}'.format('Parameters: '))
+                for param in swaggerData['paths'][args.path][method]['parameters']:
+                    #print(param)
+                    if 'name' in param: print('{0:>12}{1}'.format('Name: ', param['name']))
+                    if 'description' in param: print('{0:>19}{1}'.format('Description: ', param['description'].replace('\n', ' ')))
+                    if 'in' in param: print('{0:>13}{1}'.format('Field: ', param['in']))
+                    if 'type' in param: print('{0:>12}{1}'.format('Type: ', param['type']))
+                    if 'required' in param: print('{0:>16}{1}'.format('Required: ', param['required'])) 
+                    print('')
+                print('')
+
+    def convert_config_file(self, config_file):
+        # Check if the config file exists
+        # example: swagger.yaml
+        exists = os.path.isfile(config_file)
+        if exists:
+            # Check if the config file + '.json' exists. This means we already converted the file
+            # example: swagger.yaml.json
+            exists = os.path.isfile(config_file + '.json')
+            if exists:
+                try:
+                    with open(config_file  + '.json', 'r') as f:
+                            return json.load(f)
+                except IOError:
+                    sys.exit("Warning: Invalid json file.")
+            else:
+                try:
+                    # There is no swagger.yaml.json file
+                    # Lets try open is as a json file
+                    with open(config_file, 'r') as f:
+                        return json.load(f)
+                except:
+                    # Couldn't open the original file as a json file
+                    # This means it has to be a yaml file because other than json or yaml, pythapi doesn't support
+                    try:
+                        with open(config_file, 'r') as stream:
+                            # let try to convert the yaml file to json and write a new file next to the original with .json appended
+                            try:
+                                f = open(config_file + '.json', "w")
+                                json.dump(yaml.load(stream), f, indent=4)
+
+                                # After the converted file has been writen, we still need to put in in the swaggerData variable
+                                with open(config_file  + '.json', 'r') as f:
+                                    return json.load(f)
+                            except yaml.YAMLError as exc:
+                                print(exc)
+                    except IOError:
+                        sys.exit("Warning: Invalid yaml file. Couldn't convert it to json")
+        else:
+            sys.exit("Error: The file " + config_file + " doesn't exists.")
+
+    
 
 if __name__ == '__main__':
     pythapiCLI()
