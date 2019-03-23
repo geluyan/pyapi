@@ -62,6 +62,7 @@ Swagger CLI methods are:
     
     def swagger(self):
         _swagger(self.config, self.endpoint)
+        
 class _get(object):
     
     def __init__(self, config, endpoint):
