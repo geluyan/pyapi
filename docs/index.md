@@ -14,7 +14,7 @@ You should be able to use pythapi with every API endpoint. It currently allows y
 ## Requirements
 pythapi uses the requests module to perform API calls. This isn't native installed and has to be installed using pip:
 
-    $pip install requests
+    $pip install requests configparser pyyaml
 
 ## Script Usage
 
