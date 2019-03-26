@@ -12,10 +12,10 @@ class testPythapi(unittest.TestCase):
         """
         # Disable certificate warnings and connect to Rubrik Cluster
         urllib3.disable_warnings()
-        jsonplaceholder = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
+        apitest = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
 
         name = "geluykens"
-        user = jsonplaceholder.get("/users/1", authentication=False)
+        user = apitest.get("/users/1", authentication=False)
 
         self.assertEqual(name, user['name'])
     
@@ -25,7 +25,7 @@ class testPythapi(unittest.TestCase):
         """
         # Disable certificate warnings and connect to Rubrik Cluster
         urllib3.disable_warnings()
-        jsonplaceholder = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
+        apitest = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
 
         data = {
             "id": 4,
@@ -33,7 +33,7 @@ class testPythapi(unittest.TestCase):
             "firstname": "Luc",
             "title": "Testing Engineer"
         }
-        user = jsonplaceholder.post("/users", data, authentication=False)
+        user = apitest.post("/users", data, authentication=False)
 
         self.assertEqual(data, user)
 
@@ -43,7 +43,7 @@ class testPythapi(unittest.TestCase):
         """
         # Disable certificate warnings and connect to Rubrik Cluster
         urllib3.disable_warnings()
-        jsonplaceholder = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
+        apitest = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
 
         data = {
             "id": 1,
@@ -51,7 +51,7 @@ class testPythapi(unittest.TestCase):
             "firstname": "Luc",
             "title": "Testing Engineer"
         }
-        user = jsonplaceholder.put("/users/1", data, authentication=False)
+        user = apitest.put("/users/1", data, authentication=False)
 
         self.assertEqual(data, user)
     
@@ -61,9 +61,9 @@ class testPythapi(unittest.TestCase):
         """
         # Disable certificate warnings and connect to Rubrik Cluster
         urllib3.disable_warnings()
-        jsonplaceholder = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
+        apitest = pythapi.Connect('my-json-server.typicode.com', '/geluyan/pythapi')
 
-        user = jsonplaceholder.delete("/users/1", authentication=False)
+        apitest.delete("/users/1", authentication=False)
 
 if __name__ == '__main__':
     unittest.main()
