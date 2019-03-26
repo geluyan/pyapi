@@ -1,11 +1,27 @@
 {
-  "posts": [
+  "users": [
     {
       "id": 1,
-      "title": "hello"
+      "name": "geluykens",
+      "firstname": "andy",
+      "title": "DevOps Engineer"
+    },
+    {
+      "id": 2,
+      "name": "Doe",
+      "firstname": "John",
+      "title": "System Engineer"
+    },
+    {
+      "id": 3,
+      "name": "Doe",
+      "firstname": "Jane",
+      "title": "Operation Manager"
     }
   ],
-  "profile": {
-    "name": "typicode"
+  "posts": {
+    "id": 1,
+    "title": "Hello World!",
+    "test": "This is used for pythapi unit testing."
   }
 }
