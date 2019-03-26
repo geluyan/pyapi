@@ -19,9 +19,11 @@
       "title": "Operation Manager"
     }
   ],
-  "posts": {
+  "posts": [
+  {
     "id": 1,
     "title": "Hello World!",
     "test": "This is used for pythapi unit testing."
   }
+  ]
 }
