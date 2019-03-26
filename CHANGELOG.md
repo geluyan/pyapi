@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.3] - Not yet released
 ### Added
 - First version of the swagger viewer
+- Introduced unit testing
 
 ## [0.0.2] - 2019-03-21
 ### Added

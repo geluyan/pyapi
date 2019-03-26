@@ -4,6 +4,7 @@
 **Added**
 
 * First version of the swagger viewer
+* Introduced Unit Testing
 
 ## 0.0.2
 **Release Date** 2019-03-21

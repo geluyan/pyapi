@@ -2,8 +2,11 @@ import urllib3
 import unittest
 import pythapi
 
-# The following test are written with the help of https://my-json-server.typicode.com
+# The following tests are written with the help of https://my-json-server.typicode.com
 # Tests are based on the Python default unittest module
+
+# The db.json file is located in the root of this repo
+# You can use GET, POST, PUT and DELETE. Changes aren't persisted between calls.
 
 class testPythapi(unittest.TestCase):
     def test_get(self):
